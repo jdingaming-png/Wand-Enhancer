@@ -23,14 +23,14 @@ const cheats: CheatSchema[] = [
 ];
 
 describe('preset storage', () => {
-    beforeEach(() => window.localStorage.clear());
+    beforeEach(() => localStorage.clear());
 
     it('captures persistent values and excludes one-shot actions', () => {
         expect(capturePresetValues(cheats, { god: true, apply: 1 })).toEqual({ god: true });
     });
 
     it('revives valid presets and ignores malformed entries', () => {
-        window.localStorage.setItem(
+        localStorage.setItem(
             'presets',
             JSON.stringify([
                 { id: 'valid', name: 'Valid', createdAt: 'now', values: { god: true } },
@@ -43,6 +43,6 @@ describe('preset storage', () => {
         ]);
 
         savePresets('presets', []);
-        expect(window.localStorage.getItem('presets')).toBeNull();
+        expect(localStorage.getItem('presets')).toBeNull();
     });
 });
